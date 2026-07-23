@@ -1,0 +1,36 @@
+services:
+  frontend:
+    build: {context: .., dockerfile: deploy/docker/frontend.Dockerfile}
+    working_dir: /app
+    volumes: ["../web:/app"]
+    command: npm run dev -- --hostname 0.0.0.0
+    ports: ["3000:3000"]
+    depends_on: [backend]
+  backend:
+    build: {context: .., dockerfile: deploy/docker/backend.Dockerfile}
+    working_dir: /app
+    volumes: ["..:/app"]
+    command: uvicorn app.api.main:app --host 0.0.0.0 --port 8000
+    ports: ["8000:8000"]
+    env_file: ["../.env"]
+    depends_on: [postgres, redis, qdrant]
+  scanner-workers:
+    build: {context: .., dockerfile: deploy/docker/backend.Dockerfile}
+    working_dir: /app
+    volumes: ["..:/app"]
+    command: python -m workers
+    env_file: ["../.env"]
+    depends_on: [backend, redis, qdrant, postgres]
+  postgres:
+    image: postgres:16-alpine
+    environment: {POSTGRES_DB: security_copilot, POSTGRES_USER: copilot, POSTGRES_PASSWORD: change-me-local-only}
+    volumes: [postgres_data:/var/lib/postgresql/data]
+  redis:
+    image: redis:7-alpine
+  qdrant:
+    image: qdrant/qdrant:latest
+    volumes: [qdrant_data:/qdrant/storage]
+    ports: ["6333:6333"]
+volumes:
+  postgres_data:
+  qdrant_data:

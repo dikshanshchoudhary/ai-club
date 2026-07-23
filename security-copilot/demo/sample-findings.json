@@ -1,0 +1,8 @@
+[
+  {"tool": "semgrep", "severity": "high", "rule_id": "python.sql-injection", "title": "Potential SQL injection", "file": "vulnerable-repo/app.py", "line": 9, "cwe": "CWE-89", "description": "User input is concatenated into a SQL query.", "mitre": "T1190"},
+  {"tool": "gitleaks", "severity": "high", "rule_id": "generic-api-key", "title": "Credential-like literal", "file": "vulnerable-repo/app.py", "line": 4, "cwe": "CWE-798", "description": "A credential-like value is embedded in source code."},
+  {"tool": "checkov", "severity": "high", "rule_id": "CKV_AWS_20", "title": "Public S3 access", "file": "sample-terraform/main.tf", "line": 8, "description": "Public access controls are disabled."},
+  {"tool": "checkov", "severity": "high", "rule_id": "CKV_K8S_6", "title": "Privileged container", "file": "sample-k8s/deployment.yaml", "line": 17, "description": "The container runs with privileged access."},
+  {"tool": "trivy", "severity": "medium", "rule_id": "CVE-DEMO-0001", "title": "Outdated dependency", "file": "vulnerable-repo/requirements.txt", "line": 1, "cve": "CVE-DEMO-0001", "description": "The demo dependency is intentionally outdated."}
+]
+

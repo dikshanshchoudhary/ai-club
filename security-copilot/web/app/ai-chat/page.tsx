@@ -1,0 +1,2 @@
+import { PageShell } from "../components/page-shell";
+export default function AIChat() { return <PageShell title="AI Chat"><div className="card"><p>Ask about scan results, incidents, vulnerabilities, remediation, and CVEs.</p><textarea placeholder="Why is this vulnerable?" style={{ width: "100%", minHeight: 120, background: "#09090b", color: "white", padding: 12 }} /><p style={{ color: "#a1a1aa" }}>Answers are grounded in retrieved scan and investigation evidence.</p><button>Ask Copilot</button></div></PageShell>; }
